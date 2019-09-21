@@ -15,5 +15,22 @@ function render (data) {
             </div>
         `);
     }).join(' ');
-    document.getElementById('msgs').innerHTML = html;
+    var divMsgs = document.getElementById('msgs');
+    divMsgs.innerHTML = html;
+    divMsgs.scrollTop = divMsgs.scrollHeight; // Fijar foco sobre ultimo mensaje
+}
+
+function addMessage(e) {
+    var nickname = document.getElementById('nickname');
+    var text = document.getElementById('text');
+
+    var message = {
+        nickname: nickname.value,
+        text: text.value
+    };
+
+    nickname.style.display = 'none';
+    socket.emit('add-message', message);
+
+    return false; // To drop execution
 }
