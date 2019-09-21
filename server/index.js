@@ -9,10 +9,19 @@ app.get('/', function (req, res) {
     res.status(200).send('Hello World!');
 });
 
+var messages = [{
+    id: 1,
+    text: 'Welcome to the private chat created with Socket.io and Node Js',
+    nickname: 'Bot-lah'
+}];
+
 // Abrir conexion con socket
 // Si un cliente se conecta recibimos un aviso en consola
 io.on('connection', function (socket) {
-    console.log('Client with IP' + socket.handshake.address + 'is connected');
+    console.log('Client with IP ' + socket.handshake.address + ' is connected');
+
+    // Transfer message to client
+    socket.emit('messages', messages);
 });
 
 server.listen(6677, function () {
